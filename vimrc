@@ -1,3 +1,16 @@
+" Vim needs a POSIX-Compliant shell. Fish is not.
+if $SHELL =~ 'bin/fish'
+    set shell=/bin/sh
+endif
+
+set encoding=utf-8
+set guifont=Meslo\ LG\ M\ for\ Powerline:h14
+set laststatus=2
+set ambiwidth=single
+set antialias
+"let g:Powerline_symbols = 'unicode'
+"let g:Powerline_symbols = 'fancy'
+
 " Map <Leader> key to ,
 let mapleader = ","
 
@@ -13,8 +26,6 @@ set hidden
 
 set number " Show line numbers
 set ruler  " Show line and column number
-
-set guifont=Menlo\ Regular:h14
 
 set nocompatible " vim, not vi
 filetype off     " not sure
@@ -71,7 +82,6 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'myusuf3/numbers.vim'
 " Bundle 'scrooloose/nerdcommenter'
-Bundle 'spf13/vim-preview'
 Bundle 'mbbill/undotree'
 Bundle 'spf13/vim-colors'
 Bundle 'Lokaltog/vim-powerline'
@@ -276,3 +286,6 @@ map <D-/> :TComment<CR>
 let g:nerdtree_tabs_open_on_gui_startup = 0
 let g:nerdtree_tabs_open_on_console_startup = 0
 let g:NERDTreeHijackNetrw = 0
+
+" Tagbar
+let g:tagbar_ctags_bin = "/usr/local/bin/ctags"

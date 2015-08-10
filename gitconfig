@@ -1,9 +1,10 @@
 [user]
-  name = Britt Selvitelle
+	name = Britt Selvitelle
   email = brittspace@gmail.com
 [core]
   excludesfile = /Users/britt/.gitignore
 	editor = /usr/bin/vim
+	quotepath = false
 [color]
   diff = auto
   status = auto
@@ -16,3 +17,5 @@
 	trustExitCode = true
 [init]
   templatedir = ~/.git_template
+[credential]
+	helper = osxkeychain

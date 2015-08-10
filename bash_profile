@@ -13,4 +13,9 @@ export PS1="\w\[\033[34m\]\$(parse_git_branch)\[\033[00m\] $\[\033[00m\] "
 
 # rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-source /usr/local/bin/virtualenvwrapper.sh
+
+# aliases
+alias ussh='ssh ubuntu'
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
