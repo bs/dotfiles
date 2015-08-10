@@ -54,11 +54,11 @@ set listchars=tab:,.,trail:.,extends:#,nbsp:.
 set showmatch
 
 " Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#begin()
 
 " let Vundle manage Vundle
-Bundle 'gmarik/vundle'
+Bundle 'gmarik/Vundle.vim'
 
 " ***** My Bundles
 " ...
