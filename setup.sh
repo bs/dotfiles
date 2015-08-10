@@ -1,11 +1,15 @@
-#! /bin/sh
+#!/bin/bash
 
 # zsh
-ln -s ./zshrc ../.zshrc
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+ln -s ~/.dotfiles/zshrc ~/.zshrc
 
 # vim
-ln -s ./vim ../.vim
-ln -s ./vimrc ../.vimrc
+ln -s ~/.dotfiles/vim ~/.vim
+ln -s ~/.dotfiles/vimrc ~/.vimrc
 
 # git
 git config --global core.excludesfile ./gitignore
+
+# start zsh
+zsh
