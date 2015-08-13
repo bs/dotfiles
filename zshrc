@@ -14,6 +14,7 @@ DEFAULT_USER="britt"
 #ZSH_THEME="fishy"
 #ZSH_THEME="sorin"
 ZSH_THEME="britt"
+DISABLE_AUTO_TITLE=true
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
