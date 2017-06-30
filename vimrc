@@ -7,7 +7,6 @@ set encoding=utf-8
 set guifont=Meslo\ LG\ M\ for\ Powerline:h14
 set laststatus=2
 set ambiwidth=single
-set antialias
 "let g:Powerline_symbols = 'unicode'
 "let g:Powerline_symbols = 'fancy'
 
