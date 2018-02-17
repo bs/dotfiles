@@ -18,7 +18,7 @@ sudo update-alternatives --config editor
 ln -sf ~/dotfiles/vim ~/.vim
 ln -sf ~/dotfiles/vimrc ~/.vimrc
 mkdir -p ~/.config
-mkdir -p ~/.config/nvm
+mkdir -p ~/.config/nvim
 ln -sf ~/dotfiles/vimrc ~/.config/nvim/init.vim
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
