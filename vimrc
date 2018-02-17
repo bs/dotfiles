@@ -46,7 +46,11 @@ set listchars=tab:,.,trail:.,extends:#,nbsp:.
 set showmatch
 
 " Plugins
-call plug#begin()
+
+call plug#begin('~/.vim/plugged')
+
+" Molokai color scheme
+Plug 'tomasr/molokai'
 
 " Manage Tag Files
 Plug 'ludovicchabant/vim-gutentags'
@@ -119,6 +123,7 @@ Plug 'Raimondi/delimitMate'
 
 " Completion framework
 Plug 'Shougo/deoplete.nvim'
+Plug '~/.fzf'
 
 " ***** Vim-Scripts Repos
 "Bundle 'L9'

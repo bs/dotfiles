@@ -1,22 +1,42 @@
-#!/bin/bash
+#!/bin/sh
+
+set -e
+
+# neovim
+which nvim || (echo "Download nvim. https://github.com/neovim/neovim/wiki/Installing-Neovim" && exit 1)
+which zsh || (echo "You gotta get zsh." && exit 1)
+which ctags || (echo "You need exuberant-ctags/tags" && exit 1)
+
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+sudo update-alternatives --config vi
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+sudo update-alternatives --config vim
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+sudo update-alternatives --config editor
+
+# vim
+ln -sf ~/dotfiles/vim ~/.vim
+ln -sf ~/dotfiles/vimrc ~/.vimrc
+mkdir -p ~/.config
+mkdir -p ~/.config/nvm
+ln -sf ~/dotfiles/vimrc ~/.config/nvim/init.vim
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+pip install --user neovim
 
 # zsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ln -sf ~/dotfiles/oh-my-zsh/themes ~/.oh-my-zsh/custom/themes
 ln -sf ~/dotfiles/zshrc ~/.zshrc
 
-# vim
-ln -sf ~/dotfiles/vim ~/.vim
-ln -sf ~/dotfiles/vimrc ~/.vimrc
-mkdir ~/.config
-mkdir ~/.config/nvim
-ln -sf ~/dotfiles/vimrc ~/.config/nvim/init.vim
-git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
 # git
 git config --global user.name "Britt Selvitelle"
 git config --global user.email yap@bri.tt
 git config --global core.excludesfile ~/dotfiles/gitignore
 
-echo "start zsh"
-echo "vim +PluginInstall +qall or :PluginInstall"
+# fzf
+cd /tmp
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+
+echo "Finished!!! Logout and log back in to get started!"

@@ -54,17 +54,19 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/Users/britt/anaconda/bin:/opt/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:$PATH
+export PATH=~/anaconda3/bin:/opt/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:$PATH
 
 # Python
 export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin:$PATH
-export NLTK_DATA=/Users/britt/src/nltk_data
 
 # nvim
-alias vim="nvim"
-alias vi="nvim"
-alias vimdiff='nvim -d'
-export EDITOR=nvim
+# alias vim="nvim"
+# alias vi="nvim"
+# alias vimdiff='nvim -d'
+#export EDITOR=nvim
 
 # fzf - cli fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# fastai
+source activate fastai
