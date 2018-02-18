@@ -34,6 +34,9 @@ git config --global user.name "Britt Selvitelle"
 git config --global user.email yap@bri.tt
 git config --global core.excludesfile ~/dotfiles/gitignore
 
+# tmux
+ln -sf ~/dotfiles/tmux.conf ~/.tmux.conf
+
 # fzf
 cd /tmp
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
