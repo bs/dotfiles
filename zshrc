@@ -65,37 +65,7 @@ source $ZSH/oh-my-zsh.sh
 
 # crazy hack for fastai aws setup
 if ls /usr/local/cuda* 1> /dev/null 2>&1; then
-  export PATH=/usr/local/cuda/bin:/usr/local/bin:/opt/aws/bin:/home/ubuntu/src/cntk/bin:/usr/local/mpi/bin:$PATH
-  export LD_LIBRARY_PATH=/home/ubuntu/src/cntk/bindings/python/cntk/libs:/usr/local/cuda/lib64:/usr/local/lib:/usr/lib:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/mpi/lib:$LD_LIBRARY_PATH
-  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
-  export PYTHONPATH=/home/ubuntu/src/cntk/bindings/python
-  if [ -e /usr/lib/libmpi_cxx.so ]; then
-    export LD_PRELOAD=/usr/lib/libmpi_cxx.so
-  fi
-  export PATH=/usr/local/cuda/bin:/usr/local/bin:/opt/aws/bin:/usr/local/mpi/bin:$PATH
-  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:/usr/lib:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/mpi/lib:$LD_LIBRARY_PATH
-  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
-  export PATH=/usr/local/cuda/bin:/usr/local/bin:/opt/aws/bin:/usr/local/mpi/bin:$PATH
-  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:/usr/lib:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/mpi/lib:/lib/:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$LD_LIBRARY_PATH
-  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
-  export PATH=/usr/local/cuda/bin:/usr/local/bin:/opt/aws/bin:/usr/local/mpi/bin:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$PATH
-  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:/usr/lib:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/mpi/lib:/lib/:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$LD_LIBRARY_PATH
-  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH
-  export PATH=/usr/local/cuda/bin:/usr/local/bin:/opt/aws/bin:/usr/local/mpi/bin:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$PATH
-  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:/usr/lib:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/mpi/lib:/lib/:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$LD_LIBRARY_PATH
-  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$PKG_CONFIG_PATH
-  export PATH=/usr/local/cuda/bin:/usr/local/bin:/opt/aws/bin:/usr/local/mpi/bin:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$PATH
-  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:/usr/lib:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/mpi/lib:/lib/:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$LD_LIBRARY_PATH
-  export PATH=/usr/local/cuda/bin:/usr/local/bin:/opt/aws/bin:/usr/local/mpi/bin:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$PATH
-  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:/usr/lib:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/mpi/lib:/lib/:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$LD_LIBRARY_PATH
-  export PYTHONPATH=/home/gauta/src/caffe2/build:$PYTHONPATH
-  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$PKG_CONFIG_PATH
-  export PATH=/usr/local/cuda/bin:/usr/local/bin:/opt/aws/bin:/usr/local/mpi/bin:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$PATH
-  export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/lib:/usr/lib:/usr/local/cuda/extras/CUPTI/lib64:/usr/local/mpi/lib:/lib/:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$LD_LIBRARY_PATH
-  export PYTHONPATH=~/src/caffe2/build:$PYTHONPATH
-  export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig:/home/ubuntu/src/caffe2/build:/home/ec2-user/src/caffe2/build:$PKG_CONFIG_PATH
-
-  export PATH=~/src/anaconda3/bin:$PATH
+  export PATH=~/anaconda3/bin:$PATH
   source activate fastai
 else
   export PATH=~/anaconda3/bin:/opt/local/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/texbin:$PATH
