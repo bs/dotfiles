@@ -63,6 +63,43 @@ source $ZSH/oh-my-zsh.sh
 # fzf - cli fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fe() {
+  IFS='
+'
+  local declare files=($(fzf-tmux --query="$1" --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+  unset IFS
+}
+
+o() {
+  local out file key
+  out=$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)
+  key=$(head -1 <<< "$out")
+  file=$(head -2 <<< "$out" | tail -1)
+  if [ -n "$file" ]; then
+    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+  fi
+}
+
+# search inside files - fuzzy ag
+af() {
+  #local search_string
+  #search_string=$(printf ",%s" "$@");
+  #ag --nobreak --nonumbers --noheading "$*" | fzf
+  ag --nobreak --noheading --noheading $@ . | fzf
+}
+
+# fd - fuzzy cd to selected directory
+fd() {
+  local dir
+  dir=$(find ${1:-.} -path '*/\.*' -prune \
+                  -o -type d -print 2> /dev/null | fzf +m) &&
+  cd "$dir"
+}
+
 # crazy hack for fastai aws setup
 if ls /usr/local/cuda* 1> /dev/null 2>&1; then
   export PATH=~/anaconda3/bin:$PATH
