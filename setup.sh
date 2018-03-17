@@ -7,13 +7,6 @@ which nvim || (echo "Download nvim. https://github.com/neovim/neovim/wiki/Instal
 which zsh || (echo "You gotta get zsh." && exit 1)
 which ctags || (echo "You need exuberant-ctags/tags" && exit 1)
 
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --config vi
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --config vim
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-sudo update-alternatives --config editor
-
 # vim
 ln -sf ~/dotfiles/vim ~/.vim
 ln -sf ~/dotfiles/vimrc ~/.vimrc

@@ -55,10 +55,10 @@ source $ZSH/oh-my-zsh.sh
 
 
 # nvim
-# alias vim="nvim"
-# alias vi="nvim"
-# alias vimdiff='nvim -d'
-#export EDITOR=nvim
+alias vim="nvim"
+alias vi="nvim"
+alias vimdiff='nvim -d'
+export EDITOR=nvim
 
 # fzf - cli fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -110,3 +110,13 @@ else
   # Python
   export PATH=/opt/local/Library/Frameworks/Python.framework/Versions/Current/bin:$PATH
 fi
+
+# Ripgrep
+
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'

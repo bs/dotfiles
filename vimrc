@@ -17,9 +17,10 @@ set expandtab
 set autoindent
 set smartindent
 set hidden
-set number " Show line numbers
-set ruler  " Show line and column number
+" set number " Show line numbers
+" set ruler  " Show line and column number
 
+"
 " clipboard
 set clipboard=unnamed " yank to the macOS clipboard
 
@@ -58,9 +59,15 @@ Plug 'ludovicchabant/vim-gutentags'
 " Vim script for text filtering and alignment
 Plug 'godlygeek/tabular'
 
+" A collection of language packs for Vim
+Plug 'sheerun/vim-polyglot'
+
+" quoting and parens
+Plug 'tpope/vim-surround'
+
 " Tree style file navigation
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
+" Plug 'scrooloose/nerdtree'
+" Plug 'jistr/vim-nerdtree-tabs'
 
 " Git Wrapper
 Plug 'tpope/vim-fugitive'
@@ -84,9 +91,6 @@ Plug 'ntpeters/vim-better-whitespace'
 " A vim plugin to display the indention levels with thin vertical lines 
 Plug 'Yggdroot/indentLine'
 
-" A better JSON for Vim: distinct highlighting of keywords vs values, JSON-specific (non-JS) warnings, quote concealing. 
-Plug 'elzr/vim-json'
-
 " Sane buffer/window deletion
 Plug 'mhinz/vim-sayonara'
 
@@ -94,36 +98,34 @@ Plug 'mhinz/vim-sayonara'
 Plug 'tpope/vim-endwise'
 
 " Search in project
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 " A nicer Python indentation style for vim
 Plug 'Vimjas/vim-python-pep8-indent'
 
-" Useful pairs of mapping
-Plug 'tpope/vim-unimpaired'
-
-
-"Plug 'Soares/ack.vim'
-Plug 'mileszs/ack.vim'
-"Plug 'tomtom/tcomment_vim'
-Plug 'majutsushi/tagbar'
-Plug 'jeetsukumaran/vim-buffergator'
-Plug 'scrooloose/syntastic'
-Plug 'scrooloose/nerdcommenter'
+" Visualize Undo Tree
 Plug 'mbbill/undotree'
-Plug 'spf13/vim-colors'
-"Plug 'Lokaltog/vim-powerline'
+
+" Search in files ... uses ripgrep
+Plug 'mileszs/ack.vim'
+
+" Find faster
+Plug '~/.fzf'
+Plug 'junegunn/fzf.vim'
+
+
+"Plug 'jeetsukumaran/vim-buffergator'
+"
+Plug 'scrooloose/nerdcommenter'
+
+"Plug 'spf13/vim-colors'
 "Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'vim-ruby/vim-ruby'
-"Plug 'tpope/vim-rails'
-Plug 'pangloss/vim-javascript'
 
 " Auto complete quotes, etc
-Plug 'Raimondi/delimitMate'
+"Plug 'Raimondi/delimitMate'
 
 " Completion framework
 Plug 'Shougo/deoplete.nvim'
-Plug '~/.fzf'
 
 " ***** Vim-Scripts Repos
 "Bundle 'L9'
@@ -153,9 +155,9 @@ colorscheme molokai
 set colorcolumn=0
 
 " Get rid of the fucking help key
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
+"inoremap <F1> <ESC>
+"nnoremap <F1> <ESC>
+"vnoremap <F1> <ESC>
 
 if has('statusline')
   set laststatus=2
@@ -173,21 +175,15 @@ endif
 " nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<Cr>
 
 " ================== Sayonara ============================
-nnoremap <silent> <leader>q :Sayonara<CR>
+"nnoremap <silent> <leader>q :Sayonara<CR>
 
 " =================== vim-airline ========================
 let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 
-" ctrlp file searching
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-nmap <silent> <C-e> :CtrlPRTS<CR>
-nnoremap <silent> <D-r> :CtrlPMRU<CR>
-nmap <silent> <C-b> :CtrlPBuffer<CR>
-
 " Toggle paste mode
-nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
-imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
+"nmap <silent> <F4> :set invpaste<CR>:set paste?<CR>
+"imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 
 " Lusty Explorer
 "nmap <silent> <Leader>b :LustyBufferExplorer<CR>
@@ -195,71 +191,79 @@ imap <silent> <F4> <ESC>:set invpaste<CR>:set paste?<CR>
 "nmap <silent> <Leader>r :LustyFilesystemExplorerFromHere<CR>
  " Lusty requires hidden mode
 
-let g:NERDShutUp=1
+"let g:NERDShutUp=1
 
 " NerdTree {
-    map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-    map <leader>e :NERDTreeFind<CR>
-    nmap <leader>nt :NERDTreeFind<CR>
 
-    let NERDTreeShowBookmarks=1
-    let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-    let NERDTreeChDirMode=0
-    let NERDTreeQuitOnOpen=1
-    let NERDTreeMouseMode=2
-    let NERDTreeShowHidden=1
-    let NERDTreeKeepTreeInNewTab=1
-    let g:nerdtree_tabs_open_on_gui_startup=0
 " }
 
-" Ack
-if has("gui_macvim") && has("gui_running")
-   " Command-Shift-F on OSX
-  map <D-F> :Ack!<space>
-"   "call janus#add_mapping('ack', 'map', '<D-F>', ':Ack<space>')
-" else
-"   " Define <C-F> to a dummy value to see if it would set <C-f> as well.
-"   map <C-F> :dummy
-"
-"   if maparg("<C-f>") == ":dummy"
-"     " <leader>f on systems where <C-f> == <C-F>
-"     " call janus#add_mapping('ack', 'map', '<leader>f', ':Ack<space>')
-"   else
-"     " <C-F> if we can still map <C-f> to <S-Down>
-"     " call janus#add_mapping('ack', 'map', '<C-F>', ':Ack<space>')
-"   endif
-"
-"   map <C-f> <S-Down>
-endif
-
-" TComment
-if has("gui_macvim") && has("gui_running")
-  map <D-/> gc
-endif
-
-map <D-/> :TComment<CR>
-" map <D-t> <ESC>:CtrlP<CR>
-" imap <D-t> <ESC>:CtrlP<CR>
-" inoremap <D-t> <esc>:CtrlP<CR>
-"else
-"  call janus#add_mapping('ctrlp', 'map', '<C-t>', ':CtrlP<CR>')
-"  call janus#add_mapping('ctrlp', 'imap', '<C-t>', '<ESC>:CtrlP<CR>')
-"endif
-
-     " ctrlp {
-        let g:ctrlp_working_path_mode = 2
-        nnoremap <silent> <D-t> :CtrlP<CR>
-        nnoremap <silent> <D-r> :CtrlPMRU<CR>
-        let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$' }
-     "}
-
-let g:nerdtree_tabs_open_on_gui_startup = 0
-let g:nerdtree_tabs_open_on_console_startup = 0
-let g:NERDTreeHijackNetrw = 0
-
 " Tagbar
-let g:tagbar_ctags_bin = "/opt/local/bin/ctags"
+"let g:tagbar_ctags_bin = "/opt/local/bin/ctags"
 
+"let g:deoplete#enable_at_startup = 1
+
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+"  set grepformat=%f:%l:%c:%m,%f:%l:%m
+
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+
+"  let g:ctrlp_user_command = 'rg --files %s'
+"  let g:ctrlp_working_path_mode = 'ra'
+"  let g:ctrlp_switch_buffer = 'et'
+endif
+
+let g:ackprg = 'rg --vimgrep --no-heading'
+
+" --column: Show column number
+" --line-number: Show line number
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+"command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+
+" Use :F inside vim to search text
+"let g:rg_command = '
+ "\ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+ "\ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,py,asm,nasm}"
+ "\ -g "!{.git,node_modules,vendor}/*" '
+
+"command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
+set wildignore+=*/.git/*,*/tmp/*,*.swp
+
+"command! -bang -nargs=* Rg
+      "\ call fzf#vim#grep(
+      "\   'rg --column --line-number --no-heading --color=always --ignore-case '.shellescape(<q-args>), 1,
+      "\   <bang>0 ? fzf#vim#with_preview('up:60%')
+      "\           : fzf#vim#with_preview('right:50%:hidden', '?'),
+      "\   <bang>0)
+
+
+" From FZF
+nmap ; :CtrlPBuffer<CR>
+nmap <Leader>r :Tags<CR>
+nmap <Leader>t :Tags<CR>
+nmap <Leader>f :Ag<CR>
+nmap <Leader>u :UndotreeToggle<CR>
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+" Use deoplete.
 let g:deoplete#enable_at_startup = 1
+
+
+map <D-/> \c<space><CR>
+imap <D-/> \c<space><CR>
+
+if has("persistent_undo")
+  set undodir=~/.undodir/
+  set undofile
+endif
