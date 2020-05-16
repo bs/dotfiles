@@ -1,0 +1,332 @@
+" Install vim-plug if missing
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  augroup VimPlugAutoInstall
+    autocmd!
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  augroup END
+endif
+
+call plug#begin('~/.vim/plugged')
+
+" Dependencies: {{{
+
+    " Vim Web API (required by gist-vim)
+    Plug 'mattn/webapi-vim'
+
+    " fzf greatness (fuzzy finding)
+    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'
+
+" }}}
+
+" COC {{{
+
+    if executable('yarn') && executable('node')
+      let g:coc_global_extensions = [
+        \ 'coc-clangd',
+        \ 'coc-css',
+        \ 'coc-eslint',
+        \ 'coc-git',
+        \ 'coc-github',
+        \ 'coc-gitignore',
+        \ 'coc-highlight',
+        \ 'coc-html',
+        \ 'coc-json',
+        \ 'coc-python',
+        \ 'coc-solargraph',
+        \ 'coc-spell-checker',
+        \ 'coc-tsserver',
+        \ 'coc-vimlsp',
+        \ 'coc-yaml',
+        \ 'coc-yank',
+        \ ]
+
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  endif
+
+" }}}
+
+" Terminal {{{
+
+    " abstraction on top of neovim terminal
+    Plug 'kassio/neoterm'
+
+    " floating terminal
+    Plug 'voldikss/vim-floaterm'
+
+" }}}
+
+" Writing: {{{
+
+    " distraction free writing (like iA Writer)
+    Plug 'laktek/distraction-free-writing-vim', { 'on': 'ToggleDistractionFreeWriting' }
+
+    " Distraction free writing in vim
+    Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+
+    " Highlight current paragraph (works well with goyo)
+    Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
+
+" }}}
+
+" TimPope: {{{
+    " Vim sugar for the UNIX shell commands that need it the most.
+    Plug 'tpope/vim-eunuch'
+
+    " allow (non-native) plugins to use the . command
+    Plug 'tpope/vim-repeat'
+
+    " Surround text with closures
+    Plug 'tpope/vim-surround'
+
+    " vim projectionist allows creating :Esomething custom shortcuts (required by vim rake)
+    " Plug 'tpope/vim-projectionist'
+
+    " vim unimpaired fixes daily annoyences
+    Plug 'tpope/vim-unimpaired'
+
+    " abolish.vim: easily search for, substitute, and abbreviate multiple variants of a word
+    Plug 'tpope/vim-abolish'
+
+    " Support emacs keybindings in insert mode
+    Plug 'tpope/vim-rsi'
+
+    " Clojure REPL in Vim
+    Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+
+    " save vim sessions
+    " Plug 'tpope/vim-obsession'
+
+    " Comment out code easily
+    Plug 'tpope/vim-commentary'
+
+    " add `end` automatically when creating a closure in many languages
+    Plug 'tpope/vim-endwise'
+
+" }}}
+
+" GIT: {{{
+
+    " Git Commands
+    Plug 'tpope/vim-fugitive'
+
+    " shows a git diff in the gutter (sign column) and stages/undoes hunks
+    Plug 'mhinz/vim-signify'
+    Plug 'airblade/vim-gitgutter'
+
+    " Browse git history
+    Plug 'junegunn/gv.vim'
+
+    " Display git blame status on line
+    Plug 'APZelos/blamer.nvim'
+
+" }}}
+
+" GITHUB: {{{
+
+    " Browse github
+    Plug 'junegunn/vim-github-dashboard'
+
+    Plug 'mattn/gist-vim', { 'on': 'Gist' }
+
+    " Fugitive Github Integration
+    Plug 'tpope/vim-rhubarb'
+
+" }}}
+
+" Airline {{{
+
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'enricobacis/vim-airline-clock'
+
+" }}}
+
+" Align Code: {{{
+
+    " same as tabular but by Junegunn and way easier
+    Plug 'junegunn/vim-easy-align'
+
+    " move function arguments
+    Plug 'AndrewRadev/sideways.vim'
+
+" }}}
+
+" Neovim: {{{
+    if has('nvim')
+
+      " Highlight Yanked String
+      Plug 'machakann/vim-highlightedyank'
+
+      if !exists('$TMUX')
+        " simulate tmux shortcuts in neovim
+        Plug 'hkupty/nvimux'
+      endif
+
+    endif
+" }}}
+
+" TMUX: {{{
+"   " .tmux.conf syntax highlighting
+"   Plug 'keith/tmux.vim', { 'for': 'tmux' }
+
+"   " tmux config file stuff
+"   Plug 'tmux-plugins/vim-tmux', { 'on': 'Mux' }
+
+"   " vim slime for tmux integration (C-c, C-c to send selction to tmux)
+"   Plug 'jpalardy/vim-slime', { 'on': 'Mux' }
+
+  " seamless tmux/vim pane navigation
+    Plug 'christoomey/vim-tmux-navigator', { 'on': 'Mux' }
+
+"   " yet another tmux plugin
+""    Plug 'benmills/vimux', { 'on': 'Mux' }
+"     " Run Golang tests in vimux
+"     Plug 'benmills/vimux-golang', { 'on': 'Mux' }
+
+"     " Run elixir mix tests in vimux
+"     Plug 'spiegela/vimix', { 'on': 'Mux' }
+
+"     " Run ruby and elixir tests
+"     Plug 'jgdavey/vim-turbux', { 'on': 'Mux' }
+
+"   " autocomplete using text from tmux
+"   Plug 'wellle/tmux-complete.vim', { 'on': 'Mux' }
+" }}}
+
+" Searching: {{{
+
+    " highlights all search results and allows tabbing between them
+    " Plug 'haya14busa/incsearch.vim'
+
+    " Sublime text like search results
+    Plug 'dyng/ctrlsf.vim', { 'on': 'CtrlSF' }
+
+    " RipGrep - grep is dead. All hail the new king RipGrep.
+    Plug 'jremmen/vim-ripgrep'
+
+" }}}
+
+" Navigation: {{{
+
+    " navigate to directory of current file using `-`
+    Plug 'tpope/vim-vinegar'
+
+    " Navigate symbols and tags using LSPs/ctags
+    Plug 'liuchengxu/vista.vim'
+
+" }}}
+
+" NERDTree: {{{
+
+    " NERDTree... tree explorer for vim
+    Plug 'scrooloose/nerdtree'
+
+    " Nerdtree show git status
+    Plug 'Xuyuanp/nerdtree-git-plugin'
+
+    " highlight file icons with different colors
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+
+    Plug 'justinmk/vim-dirvish'
+
+" }}}
+
+" Python: {{{
+
+    " am I crazy for trying notebooks in vim?
+    " Plug 'aaren/notedown'
+    " Plug 'szymonmaszke/vimpyter'
+
+    " A nicer Python indentation style for vim
+    " Plug 'Vimjas/vim-python-pep8-indent'
+
+" }}}
+
+" Other: {{{
+
+    " delete unused buffers
+    Plug 'schickling/vim-bufonly'
+
+    " window animations
+    Plug 'camspiers/animate.vim'
+
+    " resize windows automatically if too small
+    Plug 'camspiers/lens.vim'
+
+    " open Finder / Terminal for file under the cursor
+    " Plug 'justinmk/vim-gtfo'
+
+    " share code screenshots with Carbon Now
+    " Plug 'kristijanhusak/vim-carbon-now-sh'
+
+    " replacement for matchit
+    " Plug 'andymass/vim-matchup'
+
+    " profiling vim startup
+    Plug 'tweekmonster/startuptime.vim'
+
+    " auto-generate ctags on save
+    Plug 'jsfaint/gen_tags.vim'
+
+    " Multiple cursor emulation (a la Sublime Text) using ctrl-n
+    Plug 'terryma/vim-multiple-cursors'
+
+    " get docs for command under cursor (with Dash or web) (mapped to gK)
+    Plug 'keith/investigate.vim'
+
+    " show trailing white spaces and allow deleting them
+    Plug 'ntpeters/vim-better-whitespace'
+
+    " Indent lines (visual indication)
+    Plug 'Yggdroot/indentLine'
+
+    " syntax for apple scripts
+  "  Plug 'vim-scripts/applescript.vim', { 'for': ['scpt', 'applescript', 'scptd'] }
+
+    " Jekyll blog commands
+  "  Plug 'parkr/vim-jekyll'
+
+    " Integration testing for vim plugins
+  "  Plug 'junegunn/vader.vim'
+
+    " The ultimate undo history visualizer for VIM
+    Plug 'mbbill/undotree'
+
+    " Convert code to multiline
+    Plug 'AndrewRadev/splitjoin.vim'
+
+    " Toggle between different language verbs or syntax styles
+    "  Plug 'AndrewRadev/switch.vim'
+
+    " fancy vim start page
+    Plug 'mhinz/vim-startify'
+
+    " Show startify if we close all buffers
+    " autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
+
+    " copy code as rtf
+    "  Plug 'zerowidth/vim-copy-as-rtf', { 'on': 'CopyRTF' }
+
+    " Scratch buffers
+    Plug 'mtth/scratch.vim'
+
+    " interactive scratchpad
+    Plug 'metakirby5/codi.vim'
+
+    " resize windows in vim naturally
+    Plug 'simeji/winresizer', { 'on': 'WinResizerStartResize' }
+
+    "' File icons in vim --- keep at the bottom, below airline, nerdtree and startify
+    Plug 'ryanoasis/vim-devicons'
+
+    " Dracula
+    Plug 'dracula/vim', { 'as': 'dracula' }
+
+    " Nvim in Firefox
+    " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" }}}
+
+call plug#end()
