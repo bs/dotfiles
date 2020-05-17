@@ -179,7 +179,7 @@ call plug#begin('~/.vim/plugged')
 "   Plug 'jpalardy/vim-slime', { 'on': 'Mux' }
 
   " seamless tmux/vim pane navigation
-    Plug 'christoomey/vim-tmux-navigator', { 'on': 'Mux' }
+    Plug 'christoomey/vim-tmux-navigator'
 
 "   " yet another tmux plugin
 ""    Plug 'benmills/vimux', { 'on': 'Mux' }
@@ -246,6 +246,9 @@ call plug#begin('~/.vim/plugged')
 " }}}
 
 " Other: {{{
+
+    " Close buffers a bit more sensibly
+    Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
 
     " delete unused buffers
     Plug 'schickling/vim-bufonly'

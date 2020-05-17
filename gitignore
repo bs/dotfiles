@@ -1,6 +1,10 @@
-*~
 .DS_Store
 tags
+tags
+tags.lock
+tags.temp
+tmp/**/*
+.vscode/
 *.swp
 *.swo
 .idea
