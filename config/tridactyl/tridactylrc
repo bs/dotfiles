@@ -1,0 +1,98 @@
+
+
+   " *------------------------------------------------------*
+   " |                                                      |
+   " |   make firefox vim-y                                 |
+   " |                                                      |
+   " *------------------------------------------------------*
+   "        o
+   "         o   ^__^
+   "          o  (oo)\_______
+   "             (__)\       )\/\
+   "                 ||----w |
+   "                 ||     ||
+
+
+colorscheme base16-dracula
+
+" Use vim in tmux for editor.
+" set editorcmd iterm -e tmux -u new vim -S /home/britt/.vim/tridactyl.vim
+
+" But also support Tridactyl search too.
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+
+" Only hint search results on Google and DDG
+bindurl www.google.com f hint -Jc .rc > .r > a
+bindurl www.google.com F hint -Jbc .rc>.r>a
+
+bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
+bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
+
+" Allow Ctrl-a to select all in the commandline
+unbind --mode=ex <C-a>
+
+" Allow Ctrl-c to copy in the commandline
+unbind --mode=ex <C-c>
+
+unbind <S-Escape>
+
+" For TreeTabs toggle to work
+unbind --mode=normal <F1>
+
+" Use convienant keys for hint mode
+" set hintchars asdfgqwertvbn
+" set hintchars 01234567890
+
+ " Git{Hub,Lab} git clone via SSH yank
+bind yg composite js "git clone " +
+  document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+
+" Open right click menu on links
+bind ;C composite hint_focus; !s xdotool key Menu
+
+" Sane hinting mode
+set hintfiltermode vimperator-reflow
+set hintnames numeric
+
+" sane keys to navigate up and down
+bind --mode=ex <Tab> ex.next_completion
+bind --mode=ex <S-Tab> ex.prev_completion
+bind --mode=ex <C-j> ex.next_completion
+bind --mode=ex <C-k> ex.prev_completion
+
+" ctrl-c as esc
+bind --mode=insert <C-c> composite unfocus | mode normal
+
+" Better navigation
+bind <C-j> tabnext
+bind <C-k> tabprev
+bind <C-h> back
+bind <C-l> forward
+
+" TODO: I should consider using alt-j/k for navigating up and down through collections
+" bind --mode=ex <A-j> ex.prev_history
+" bind --mode=ex <A-k> ex.next_history
+" bind --mode=hint <A-j> hint.focusNextHint
+" bind --mode=hint <A-k> hint.focusPreviousHint
+" " bind --mode=ex <C-p> ex.prev_completion
+" j bind --mode=ex <C-n> ex.next_completion
+
+bind u undo tab
+bind U undo window
+
+set incsearch true
+
+" Make gu take you back to subreddit from comments
+bindurl reddit.com gu urlparent 4
+
+" Make Tridactyl work on more sites at the expense of some security.
+command fixamo_quiet jsb tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""'))
+command fixamo js tri.excmds.setpref("privacy.resistFingerprinting.block_mozAddonManager", "true").then(tri.excmds.setpref("extensions.webextensions.restrictedDomains", '""').then(tri.excmds.fillcmdline_tmp(3000, "Permissions added to user.js. Please restart Firefox to make them take affect.")))
+
+fixamo_quiet
+
+" For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
+" vim: set filetype=tridactyl

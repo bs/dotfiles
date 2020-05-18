@@ -69,6 +69,24 @@ call plug#begin('~/.vim/plugged')
     " Highlight current paragraph (works well with goyo)
     Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 
+    " Previewing markdown in the browser
+    " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+    " integration with Deckset macOS app
+    Plug 'bwmcadams/vim-deckset', { 'for': 'markdown' }
+
+    function! BuildComposer(info)
+      if a:info.status != 'unchanged' || a:info.force
+        if has('nvim')
+          !cargo build --release --locked
+        else
+          !cargo build --release --locked --no-default-features --features json-rpc
+        endif
+      endif
+    endfunction
+
+    Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+
 " }}}
 
 " TimPope: {{{
@@ -237,11 +255,11 @@ call plug#begin('~/.vim/plugged')
 " Python: {{{
 
     " am I crazy for trying notebooks in vim?
-    " Plug 'aaren/notedown'
-    " Plug 'szymonmaszke/vimpyter'
+    Plug 'aaren/notedown'
+    Plug 'szymonmaszke/vimpyter'
 
     " A nicer Python indentation style for vim
-    " Plug 'Vimjas/vim-python-pep8-indent'
+    Plug 'Vimjas/vim-python-pep8-indent'
 
 " }}}
 

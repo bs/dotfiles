@@ -26,6 +26,7 @@
 " TODO: Send a thank you to @junegunn for all of his amazing work
 " TODO: Send a thank you to @mhinz for all of his amazing work
 " TODO: Who was that vim hacker that was vegan that I wanted to ping?
+" TODO: Floating windows don't close if I hit esc w/ FZF
 
 
    " *------------------------------------------------------*
@@ -56,7 +57,7 @@ filetype plugin indent on           " try to recognize filetypes and load rel' p
 let mapleader = "\\"
 
 " alias for leader key
-" map <space> \
+map <space> \
 " xmap <space> \
 
 inoremap jf <esc>
@@ -324,21 +325,21 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Other CoC I pulled ... not using until I understand the dealio
 " TODO: Not using asdf ... may need to do something about node path here
@@ -477,12 +478,46 @@ let g:indentLine_color_gui = '#454C5A'
 " ----------------------------------------------------------------------------
 
 let g:scratch_no_mappings=1
+let g:scratch_persistence_file = '~/.vim/tmp/scratch.vim'
 
 nnoremap <leader>sc :Scratch<CR>
 
 augroup ScratchToggle
   autocmd!
   autocmd FileType scratch nnoremap <buffer> <leader>sc :q<CR>
+augroup END
+
+" ----------------------------------------------------------------------------
+" goyo.vim + limelight.vim
+" ----------------------------------------------------------------------------
+let g:limelight_paragraph_span = 1
+let g:limelight_priority = -1
+
+let g:background_before_goyo = &background
+
+function! s:goyo_enter()"
+  let g:background_before_goyo = &background
+  if has('gui_running')
+    set linespace=7
+  elseif exists('$TMUX')
+    silent !tmux set status off
+  endif
+  Limelight
+endfunction
+
+function! s:goyo_leave()
+  if has('gui_running')
+    set linespace=0
+  elseif exists('$TMUX')
+    silent !tmux set status on
+  endif
+  execute 'Limelight!'
+  execute 'set background=' . g:background_before_goyo
+endfunction
+
+augroup GOYO
+  autocmd! User GoyoEnter nested call <SID>goyo_enter()
+  autocmd! User GoyoLeave nested call <SID>goyo_leave()
 augroup END
 
 " ----------------------------------------------------------------------------
@@ -539,7 +574,7 @@ nnoremap <silent> <C-g>g :call FZFOpen(':FzfRg!')<CR>
 nnoremap <silent> <C-g>c :call FZFOpen(':Commands')<CR>
 nnoremap <silent> <C-g>l :call FZFOpen(':BLines')<CR>
 nnoremap <silent> <C-p> :call FZFOpen(':Files')<CR>
-" nnoremap <silent> <C-g>h :call FZFOpen(':History')<CR>
+nnoremap <silent> <C-g>h :call FZFOpen(':History')<CR>
 nnoremap <silent> <C-t> :call FZFOpen(':BTags')<CR>
 " nnoremap <silent> <C-g>u :call FZFOpen(':Files ~/')<CR>
 
