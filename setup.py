@@ -78,7 +78,7 @@ conda_packages = (
 
 pip_packages = (
     'pynvim',
-    'neovim-remove'
+    'neovim-remote'
 )
 
 gems = (
@@ -91,15 +91,16 @@ npm_global_packages = (
     'neovim'
 )
 
-macos_configs = ('macos_config')
+macos_config_script = 'macos_config'
 
 ##################################################3
 
 def create_directory(d):
-    if Path.exists(d):
+    p = Path(d)
+    if p.exists():
         robo_says(f'dir {d} already exists')
     else:
-        Path.mkdir(d)
+        p.mkdir()
         robo_says(f'dir {d} created', 'green')
 
 
@@ -109,12 +110,19 @@ def create_directories():
     for d in directories:
         create_directory(d)
 
+# TODO: make these more resillient and recreate symlinks if they are changed
 def sym_the_links():
+    """symlink directories and dotfiles"""
+
     for d in config_directories_to_symlink:
-        (home_dot_config/d).symlink_to(dot_config/d)
+        link = home_dot_config/d
+        if not link.is_symlink():
+            link.symlink_to(dot_config/d)
 
     for df in dotfiles_to_symlink:
-        (home/f'.{df}').symlink_to(dotfiles/df)
+        link = home/f'.{df}'
+        if not link.is_symlink():
+            link.symlink_to(dotfiles/df)
 
 
 def brew_installed():
@@ -177,8 +185,8 @@ def conda_setup():
     #   - sourcing ~/.{whichever_shell}rc to load a conda env changed in the config, other shells return status 0 but don't register the change
     robo_says('creating snake_jazz ... sss ss sss sssss')
 
-    # fish should now pick up snake_jazz as its default when called from subprocess
     exec_in_fish('conda create --name snake_jazz --clone base')
+    # fish should now pick up snake_jazz as its default when called from subprocess
 
 
 def conda_packages_install():
@@ -229,7 +237,7 @@ def asdf_langs_install():
 
     # get nodejs gpg keys
     robo_says('getting nodejs gpg keys')
-    subprocess.run('/usr/bin/bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring', shell=True)
+    subprocess.run('/bin/bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring', shell=True)
 
     for lang in asdf_languages:
         robo_says(f'installing the latest version of {lang}')
@@ -242,7 +250,7 @@ def zsh_setup():
     robo_says('zinit installed', 'green')
 
     robo_says('sourcing zshrc and installing zsh plugins')
-    subprocess.run('source ~/.zshrc', shell=True, executable='/usr/local/bin/zsh')
+    subprocess.run('source ~/.zshrc', shell=True, executable='/usr/local/bin/zsh') # TODO: make this work on linux
     robo_says('zsh plugins loaded', 'green')
 
     robo_says('setting the default shell to zsh')
@@ -254,12 +262,16 @@ def dotfiles_install():
 
 def brewfile_install():
     robo_says('installing brew packages')
-    subprocess.run(['brew', '~/.Brewfile'])
+    subprocess.run('brew bundle --file ~/.Brewfile', shell=True, executable='/bin/bash')
+
+def brew_finish():
+    subprocess.run(['brew', 'cleanup'])
+    subprocess.run(['brew', 'doctor'])
 
 def macos_configs_install():
     robo_says('flipping the switches on macOS configs')
-    for cfg in macos_configs:
-        subprocess.run(f'/usr/bin/bash ~/dotfiles/{cfg}', shell=True)
+    subprocess.run(f'/bin/bash ~/dotfiles/{macos_config_script}', shell=True)
+
     robo_says('macos configs done', 'green')
 
 if __name__ == "__main__":

@@ -17,14 +17,14 @@ brew 'zsh'
 # cli
 brew 'fd'
 brew 'fzf'
-brew --HEAD 'mosh' # need head to work with blink on iPad
+brew 'mosh', args: ['head'] # need head to work with blink on iPad
 brew 'ripgrep'
 brew 'tmux'
 
 # dev
 brew 'lazygit'
 brew 'neovim'
-brew --HEAD 'universal-ctags/universal-ctags/universal-ctags' # doesn't exist in brew core yet
+brew 'universal-ctags/universal-ctags/universal-ctags', args: ['head'] # doesn't exist in brew core yet
 cask 'anaconda' # this will only get installed on macos because it's a cask
 
 # libraries

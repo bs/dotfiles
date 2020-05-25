@@ -27,7 +27,7 @@ DEFAULT_USER="britt"
 #ZSH_THEME="minimal"
 #ZSH_THEME="fishy"
 #ZSH_THEME="sorin"
-ZSH_THEME="britt"
+#ZSH_THEME="britt"
 
 DISABLE_AUTO_TITLE=true
 
@@ -65,7 +65,7 @@ DISABLE_AUTO_TITLE=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 
-source $ZSH/oh-my-zsh.sh
+#source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 if [ -z ${EDITOR+x} ]; then
