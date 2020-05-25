@@ -38,10 +38,10 @@ def robo_says(msg, color='blue'):
 
 # directories that should exist
 directories = (
-    '~/.zinit',
-    '~/.vim',
-    '~/.vim/tmp',
-    '~/.config'
+    home/'.zinit',
+    home/'.vim',
+    home/'.vim/tmp',
+    home/'.config'
 )
 
 # symlinks
