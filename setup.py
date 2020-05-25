@@ -28,11 +28,13 @@ bcolors = {
     'fail' : '\033[91m',
     'end' : '\033[0m',
     'bold' : '\033[1m',
-    'underline' : '\033[4m' }
+    'underline' : '\033[4m',
+    'reset': '\x1b[0m'
+}
 
 # donger inspired by @atomantic/dotfiles
 def robo_says(msg, color='blue'):
-    print(f'{bcolors["header"]}\\[._.]/ {bcolors[color]} {msg}')
+    print(f'{bcolors["header"]}\\[._.]/ {bcolors[color]} {msg} {bcolors["reset"]}')
 
 ########################################################
 
