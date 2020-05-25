@@ -23,9 +23,10 @@ These are apps that have no good source on Homebrew Cask and need to be
 installed manually.
 
 - [Audacity](https://www.audacityteam.org/download/mac/)
+- [descript](https://www.descript.com/download)
 - [figma](https://www.figma.com/downloads/)
 - [Google Drive File Stream](https://dl.google.com/drive-file-stream/googledrivefilestream.dmg)
-- [descript](https://www.descript.com/download)
+- [Jetbrains Mono Font]()
 - [steam](https://store.steampowered.com/about/)
 - [superhuman](https://download.superhuman.com/Superhuman.dmg)
 - [zoom]()

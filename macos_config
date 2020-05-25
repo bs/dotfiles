@@ -216,6 +216,10 @@ defaults write NSGlobalDomain InitialKeyRepeat -int 10
 # …and make sure it can’t be rewritten
 # sudo chflags uchg /private/var/vm/sleepimage
 
+# Turn off power nap in both unplugged and plugged mode to avoid a kernel panic on 16" MacbookPro
+# https://discussions.apple.com/thread/251223766?answerId=252469946022#252469946022
+sudo pmset -a darkwakes 0
+
 ###############################################################################
 # Screen                                                                      #
 ###############################################################################

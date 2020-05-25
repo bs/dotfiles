@@ -31,8 +31,8 @@ cask 'anaconda' # this will only get installed on macos because it's a cask
 brew 'luarocks'
 
 # fonts
-cask 'font-jetbrains-mono'
-cask 'font-jetbrainsmono-nerd-font'
+# cask 'font-jetbrains-mono' # can't install these until they're signed
+# cask 'font-jetbrainsmono-nerd-font'
 cask 'font-source-code-pro-for-powerline'
 cask 'font-source-code-pro'
 cask 'font-source-sans-pro'
