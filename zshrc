@@ -67,9 +67,34 @@ DISABLE_AUTO_TITLE=true
 
 source $ZSH/oh-my-zsh.sh
 
+# Preferred editor for local and remote sessions
+if [ -z ${EDITOR+x} ]; then
+  export EDITOR='nvim'
+fi
+
+# Editor for git commits, rebases etc (don't set it if it was set already...
+# i.e. by NeoVim)
+if [ -z ${GIT_EDITOR+x} ]; then
+  export GIT_EDITOR='nvim'
+fi
+
+# vim
+alias e="$EDITOR"
+alias v="$VISUAL"
+alias sp="nvr -cc split"
+alias vs="nvr -cc vsplit"
+alias tree="tree -C"
+alias :qa="nvr -cc ':qa'"
+alias :wq="nvr -cc ':wq'"
+
+alias vim='nvim'
+alias vi='nvim'
+alias vimdiff='nvim -d'
+alias legacyvim='command vim'
+
 # nvim
-alias vim="nvim"
-alias vi="nvim"
+# alias vim="nvim"
+# alias vi="nvim"
 alias vimdiff='nvim -d'
 alias e="$EDITOR"
 alias v="$VISUAL"
@@ -78,7 +103,7 @@ alias vs="nvr -cc vsplit"
 alias tree="tree -C"
 alias :qa="nvr -cc ':qa'"
 alias :wq="nvr -cc ':wq'"
-export EDITOR=nvim
+# export EDITOR=nvim
 
 # enable colored output from ls, etc
 export CLICOLOR=1
@@ -346,23 +371,8 @@ if [ -f '/Users/britt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/britt/goo
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/britt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/britt/google-cloud-sdk/completion.zsh.inc'; fi
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/britt/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/britt/opt/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/britt/opt/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/britt/opt/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 # Mosh
-export PATH=/usr/local/bin:$PATH
+# export PATH=/usr/local/bin:$PATH
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -477,3 +487,30 @@ alias lm='exa -lbF --git --sort=modified' # long list, modified date sort
 # eval "$(starship init zsh)"
 # Autojump which is the equiv of z
 # [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# From the very excellent [@krismolendyke](https://github.com/krismolendyke/dotfiles/)
+# Also worth reading [this on securing macos](https://web.archive.org/web/20180604062858/https://www.davd.eu/securing-macos/)
+export HOMEBREW_NO_INSECURE_REDIRECT=1
+export HOMEBREW_CASK_OPTS=--require-sha
+
+# use asdf to manage programming languages (except python)
+. $(brew --prefix asdf)/asdf.sh
+
+# Use a conda env that is a clone of base,
+# but maintain base as a clean reference
+conda activate snake_jazz

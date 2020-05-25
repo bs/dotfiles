@@ -36,7 +36,6 @@ call plug#begin('~/.vim/plugged')
         \ 'coc-json',
         \ 'coc-python',
         \ 'coc-solargraph',
-        \ 'coc-spell-checker',
         \ 'coc-tsserver',
         \ 'coc-vimlsp',
         \ 'coc-yaml',
@@ -54,7 +53,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'kassio/neoterm'
 
     " floating terminal
-    Plug 'voldikss/vim-floaterm'
+    " Plug 'voldikss/vim-floaterm'
 
 " }}}
 
@@ -70,7 +69,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 
     " Previewing markdown in the browser
-    " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
     " integration with Deckset macOS app
     Plug 'bwmcadams/vim-deckset', { 'for': 'markdown' }
@@ -115,13 +114,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
     " save vim sessions
-    " Plug 'tpope/vim-obsession'
+    Plug 'tpope/vim-obsession'
 
     " Comment out code easily
     Plug 'tpope/vim-commentary'
 
     " add `end` automatically when creating a closure in many languages
-    Plug 'tpope/vim-endwise'
+    " Plug 'tpope/vim-endwise'
 
 " }}}
 
@@ -158,7 +157,7 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
-    Plug 'enricobacis/vim-airline-clock'
+    " Plug 'enricobacis/vim-airline-clock'
 
 " }}}
 
@@ -341,13 +340,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'simeji/winresizer', { 'on': 'WinResizerStartResize' }
 
     "' File icons in vim --- keep at the bottom, below airline, nerdtree and startify
-    Plug 'ryanoasis/vim-devicons'
+    " Plug 'ryanoasis/vim-devicons'
 
     " Dracula
     Plug 'dracula/vim', { 'as': 'dracula' }
 
     " Nvim in Firefox
-    " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
 " }}}
 
 call plug#end()

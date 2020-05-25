@@ -1,3 +1,5 @@
+" TODO: what to do about karabiner only registering escape on keyup?
+" TODO: make ctrl-c close a floating window (I'm thinking fzf ... maybe not terminal? in fzf maybe even esc. I guess the reason not to is if I needed to move around in visual and copy something)
 " TODO: Add in custom fzf commands
 " TODO: Why isn't COC working in command mode?
 " TODO: Make terminal opening with spacespace focus the terminal
@@ -58,9 +60,9 @@ let mapleader = "\\"
 
 " alias for leader key
 map <space> \
-" xmap <space> \
+xmap <space> \
 
-inoremap jf <esc>
+" inoremap jf <esc>
 
 set backspace=2                     " Backspace deletes like most programs in insert mode
 set hidden                          " enable hidden unsaved buffers
@@ -84,11 +86,11 @@ set mouse=a                         " enable mouse (selection, resizing windows)
 set guioptions=                     " remove scrollbars on macvim
 
 " tabs and spaces and text appearance
-set tabstop=2                       " Softtabs or die! use 2 spaces for tabs.
+set tabstop=2                       " Softtabs - use 2 spaces for tabs.
 set shiftwidth=2                    " Number of spaces to use for each step of (auto)indent.
 set expandtab                       " insert tab with right amount of spacing
-set shiftround                      " Round indent to multiple of 'shiftwidth'
-set textwidth=80
+" set shiftround                      " Round indent to multiple of 'shiftwidth'
+" set textwidth=80
 set nowrap                          " nowrap by default
 set list                            " show invisible characters
 set listchars=tab:»·,trail:·,nbsp:· " Display extra whitespace
@@ -106,10 +108,10 @@ set visualbell
 
 " line numbers
 set number
-set numberwidth=1
+" set numberwidth=1
 
 " Autocomplete with dictionary words when spell check is on
-set complete+=kspell
+" set complete+=kspell
 
 " Always use vertical diffs
 if has('nvim')
@@ -145,6 +147,8 @@ let g:markdown_fenced_languages = [
       \ 'vim',
       \ ]
 
+" g:python3_host_prog = 
+
 " }}}
 
 " @bs: I don't have a complete understanding of why all of these need to be
@@ -157,35 +161,35 @@ let g:markdown_fenced_languages = [
 " Floaterm
 " ====================================
 
-let g:floaterm_position = 'center'
-let g:floaterm_background = '#272c35'
-let g:floaterm_winblend = 10
+" let g:floaterm_position = 'center'
+" let g:floaterm_background = '#272c35'
+" let g:floaterm_winblend = 10
 
 
-hi FloatermNF       guibg=#272c35
-hi FloatermBorderNF guibg=#272c35 guifg=white
+" hi FloatermNF       guibg=#272c35
+" hi FloatermBorderNF guibg=#272c35 guifg=white
 
-command! -nargs=0 FT FloatermToggle
+" command! -nargs=0 FT FloatermToggle
 
-" Use 90% width for floaterm. If error occurs, update the plugin
-let g:floaterm_width = 0.9
-let g:floaterm_height = 0.7
+" " Use 90% width for floaterm. If error occurs, update the plugin
+" let g:floaterm_width = 0.9
+" let g:floaterm_height = 0.7
 
-function s:floatermSettings()
-    call SetColorColumn(0)
-endfunction
+" function s:floatermSettings()
+"     call SetColorColumn(0)
+" endfunction
 
-augroup FloatermCustom
-  autocmd!
+" augroup FloatermCustom
+"   autocmd!
 
-  autocmd FileType floaterm call s:floatermSettings()
-  " <leader>h : Hide the floating terminal window
-  " <leader>q : Quit the floating terminal window
-  autocmd FileType floaterm tmap <buffer> <silent> <leader>q <C-\><C-n>:call SetColorColumn(1)<CR>:q<CR>
-  autocmd FileType floaterm tmap <buffer> <silent> <leader>h <C-\><C-n>:call SetColorColumn(1)<CR>:hide<CR>
-augroup END
+"   autocmd FileType floaterm call s:floatermSettings()
+"   " <leader>h : Hide the floating terminal window
+"   " <leader>q : Quit the floating terminal window
+"   autocmd FileType floaterm tmap <buffer> <silent> <leader>q <C-\><C-n>:call SetColorColumn(1)<CR>:q<CR>
+"   autocmd FileType floaterm tmap <buffer> <silent> <leader>h <C-\><C-n>:call SetColorColumn(1)<CR>:hide<CR>
+" augroup END
 
-nnoremap <silent> <leader>gg :FloatermNew lazygit<CR>
+" nnoremap <silent> <leader>gg :FloatermNew lazygit<CR>
 
 "" ====================================
 " UndoTree:
@@ -193,30 +197,37 @@ nnoremap <silent> <leader>gg :FloatermNew lazygit<CR>
 nnoremap <silent> <leader>ut :UndotreeToggle<CR>
 
 " ====================================
-" COC
+" Investigate
 " ====================================
 
-" TODO: Pasting in CoC Vanilla config until I understand better
-" TextEdit might fail if hidden is not set.
-set hidden
+let g:investigate_use_dash=1
+
+" ====================================
+" COC
+" ====================================
 
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
 
 " Give more space for displaying messages.
-set cmdheight=2
+" set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=300
+" set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn=yes
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -322,6 +333,153 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings using CoCList:
+" Show all diagnostics.
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+" " TODO: Pasting in CoC Vanilla config until I understand better
+" " TextEdit might fail if hidden is not set.
+" set hidden
+
+" " Some servers have issues with backup files, see #649.
+" set nobackup
+" set nowritebackup
+
+" " Give more space for displaying messages.
+" set cmdheight=2
+
+" " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" " delays and poor user experience.
+" set updatetime=300
+
+" " Don't pass messages to |ins-completion-menu|.
+" set shortmess+=c
+
+" " Always show the signcolumn, otherwise it would shift the text each time
+" " diagnostics appear/become resolved.
+" set signcolumn=yes
+
+" " Use tab for trigger completion with characters ahead and navigate.
+" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" " other plugin before putting this into your config.
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+
+" " Use <c-space> to trigger completion.
+" inoremap <silent><expr> <c-space> coc#refresh()
+
+" " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" " position. Coc only does snippet and additional edit on confirm.
+" " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+" let g:endwise_no_mappings=1 " endwise also maps the <CR> key
+" if exists('*complete_info')
+"   inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" else
+"   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" endif
+
+" " Use `[g` and `]g` to navigate diagnostics
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" " GoTo code navigation.
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
+" " Use K to show documentation in preview window.
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" function! s:show_documentation()
+"   if (index(['vim','help'], &filetype) >= 0)
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
+
+" " Highlight the symbol and its references when holding the cursor.
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" " Symbol renaming.
+" nmap <leader>rn <Plug>(coc-rename)
+
+" " Formatting selected code.
+" xmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+
+" augroup mygroup
+"   autocmd!
+"   " Setup formatexpr specified filetype(s).
+"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"   " Update signature help on jump placeholder.
+"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" augroup end
+
+" " Applying codeAction to the selected region.
+" " Example: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" " Remap keys for applying codeAction to the current line.
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" " Apply AutoFix to problem on the current line.
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
+" " Map function and class text objects
+" " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
+
+" " Use CTRL-S for selections ranges.
+" " Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" " Add `:Format` command to format current buffer.
+" command! -nargs=0 Format :call CocAction('format')
+
+" " Add `:Fold` command to fold current buffer.
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" " Add `:OR` command for organize imports of the current buffer.
+" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" " Add (Neo)Vim's native statusline support.
+" " NOTE: Please see `:h coc-status` for integrations with external plugins that
+" " provide custom statusline: lightline.vim, vim-airline.
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings using CoCList:
 " Show all diagnostics.
@@ -525,6 +683,21 @@ augroup END
 " ----------------------------------------------------------------------------
 
 let g:sayonara_confirm_quit = 1
+
+" Delete current buffer without losing the split
+" nnoremap <silent> <C-q> :bp\|bd #<CR>
+nnoremap <silent><C-q> :Sayonara<CR>
+
+nnoremap <M-w> <Esc>:Sayonara<CR>
+nnoremap <M-W> <Esc>:Sayonara!<CR>
+nnoremap <M-q> <Esc>:confirm qall<CR>
+nnoremap <M-Q> <Esc>:qall!<CR>
+
+imap <M-w> <Esc>:Sayonara<CR>
+imap <M-W> <Esc>:Sayonara!<CR>
+imap <M-q> <Esc>:confirm qall<CR>
+imap <M-Q> <Esc>:qall!<CR>
+
 nnoremap <silent><leader>q  :Sayonara<cr>
 nnoremap <silent><leader>Q  :Sayonara!<cr>
 
@@ -688,9 +861,9 @@ let g:WebDevIconsUnicodeDecorateFileNodesPatternSymbols['package.json'] = ''
 " Useful alternatives:           
 
 " after a re-source, fix syntax matching issues (concealing brackets):
-if exists('g:loaded_webdevicons')
-  call webdevicons#refresh()
-endif
+" if exists('g:loaded_webdevicons')
+"   call webdevicons#refresh()
+" endif
 
 " ----------------------------------------------------------------------------
 "  vim-nerdtree-syntax-highlight:
@@ -720,6 +893,13 @@ let g:NERDTreeExtensionHighlightColor['elm'] = '39B7CF'
 " Strip all trailing whitespace
 " nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<Cr>
 
+" ---------------
+"  @bs specials
+" ---------------
+
+" flash line and col briefly when jumping to a previous location
+noremap <C-o> <C-o> :set cursorline <bar> set cursorcolumn <bar> call timer_start(300, { tid -> execute('set cursorline! <bar> set cursorcolumn!')})<cr>
+" noremap <esc>jk :set cursorline <bar> set cursorcolumn <bar> call timer_start(300, { tid -> execute('set cursorline! <bar> set cursorcolumn!')})<cr>
 
 " Load all plugins ------------------------------- {{{
 if filereadable(expand('~/.vimrc.bundles'))
@@ -779,6 +959,9 @@ set fillchars+=vert:│
     " disable automatic comment insertion
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+    " 4 spaces indentation in python
+    autocmd FileType python setlocal tabstop=4 shiftwidth=4
+
   augroup END
 " }}}
 
@@ -791,10 +974,7 @@ augroup END
 
 "  Key Mappings -------------------------------------------------- {{{
 "
-" Delete current buffer without losing the split
-nnoremap <silent> <C-q> :bp\|bd #<CR>
-
-" copy and paste
+" cmd / to comment
 map <C-_> gcc
 
 " open FZF in current file's directory
@@ -807,7 +987,7 @@ nnoremap <silent> <leader>zs :setlocal foldmethod=syntax<CR>
 " rename current file
 nnoremap <Leader>rn :Move <C-R>=expand("%")<CR>
 
-" Navigaton in Tmux and Vim Splits
+" navigaton in Tmux and Vim Splits
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
@@ -835,7 +1015,7 @@ endif
       endif
     endfun
 
-    nnoremap <silent> <leader>vr :call OpenConfigFile('~/.vimrc')<cr>
+    nnoremap <silent> <leader>vc :call OpenConfigFile('~/.vimrc')<cr>
     nnoremap <silent> <leader>vb :call OpenConfigFile('~/.vimrc.bundles')<cr>
     ""
   " Source (reload) your vimrc. Type space, s, o in sequence to trigger

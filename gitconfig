@@ -1,21 +1,15 @@
-[user]
-	name = Britt Selvitelle
-  email = brittspace@gmail.com
-[core]
-  excludesfile = /Users/britt/.gitignore
-	editor = /usr/bin/vim
-	quotepath = false
-[color]
-  diff = auto
-  status = auto
-  branch = auto
-[difftool "sourcetree"]
-  cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-  path = 
-[mergetool "sourcetree"]
-  cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-[init]
-  templatedir = ~/.git_template
 [credential]
 	helper = osxkeychain
+[user]
+	name = Britt Selvitelle
+	email = yap@bri.tt
+[core]
+	excludesfile = ~/.gitignore
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+[github]
+	user = bs

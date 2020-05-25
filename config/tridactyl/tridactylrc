@@ -18,6 +18,8 @@ colorscheme base16-dracula
 " Use vim in tmux for editor.
 " set editorcmd iterm -e tmux -u new vim -S /home/britt/.vim/tridactyl.vim
 
+set newtabfocus page
+
 " But also support Tridactyl search too.
 bind / fillcmdline find
 bind ? fillcmdline find -?
