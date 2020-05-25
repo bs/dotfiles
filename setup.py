@@ -128,7 +128,7 @@ def sym_the_links():
 
 
 def brew_installed():
-    return Path.is_file(brew_binary)
+    return Path(brew_binary).is_file()
 
 def git_clone(url=None, path=None):
     if url==None or path==None:
@@ -138,7 +138,7 @@ def git_clone(url=None, path=None):
 
 def brew_install():
     robo_says(f'installing my true brew')
-    if brew_installed:
+    if brew_installed():
         robo_says(f'true brew already installed', 'green')
     else:
         subprocess.run('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"', shell=True)
