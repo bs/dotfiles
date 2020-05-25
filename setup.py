@@ -277,6 +277,7 @@ def macos_configs_install():
 if __name__ == "__main__":
     robo_says('Running this dope thing.')
 
+    create_directories()
     dotfiles_install()
 
     # Core packages
@@ -284,7 +285,6 @@ if __name__ == "__main__":
     mac_core_software_update()
 
     # Move things around
-    create_directories()
     sym_the_links()
 
     # All the Homebrew things
