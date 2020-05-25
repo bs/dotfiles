@@ -11,9 +11,7 @@ the cli.
 - In Your Face
 - LanScan
 - NextDNS
-- Noisio
 - ScreenFlow 8
-- Soulver 2
 - Tailscale
 - Things 3
 - Yoink

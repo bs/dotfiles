@@ -246,7 +246,7 @@ def asdf_langs_install():
 
 def zsh_setup():
     robo_says('setting up zsh')
-    git_clone('https://github.com/zdharma/zinit.git', '~/.zinit/bin')
+    git_clone('https://github.com/zdharma/zinit.git', home/'.zinit/bin')
     robo_says('zinit installed', 'green')
 
     robo_says('sourcing zshrc and installing zsh plugins')
@@ -258,7 +258,7 @@ def zsh_setup():
 
 def dotfiles_install():
     robo_says('fetching dotfiles')
-    git_clone('https://github.com/bs/dotfiles', '~/dotfiles')
+    git_clone('https://github.com/bs/dotfiles', home/'dotfiles')
 
 def brewfile_install():
     robo_says('installing brew packages')
