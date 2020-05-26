@@ -15,13 +15,18 @@ brew 'xonsh'
 brew 'zsh'
 
 # cli
+brew 'bat'
+brew 'exa'
 brew 'fd'
 brew 'fzf'
+brew 'global'
 brew 'mosh', args: ['head'] # need head to work with blink on iPad
 brew 'ripgrep'
 brew 'tmux'
 
 # dev
+brew 'diff-so-fancy'
+brew 'git'
 brew 'lazygit'
 brew 'neovim'
 brew 'universal-ctags/universal-ctags/universal-ctags', args: ['head'] # doesn't exist in brew core yet
@@ -55,8 +60,8 @@ cask 'github'
 cask 'iterm2'
 cask 'karabiner-elements'
 cask 'krisp'
+cask 'popclip'
 cask 'rectangle'
-cask 'setapp'
 cask 'sidequest'
 cask 'slack'
 cask 'spotify'

@@ -748,6 +748,7 @@ nnoremap <silent> <C-g>c :call FZFOpen(':Commands')<CR>
 nnoremap <silent> <C-g>l :call FZFOpen(':BLines')<CR>
 nnoremap <silent> <C-p> :call FZFOpen(':Files')<CR>
 nnoremap <silent> <C-g>h :call FZFOpen(':History')<CR>
+nnoremap <silent> <C-y> :call FZFOpen(':History')<CR>
 nnoremap <silent> <C-t> :call FZFOpen(':BTags')<CR>
 " nnoremap <silent> <C-g>u :call FZFOpen(':Files ~/')<CR>
 

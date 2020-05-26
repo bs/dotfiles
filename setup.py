@@ -62,7 +62,7 @@ dotfiles_to_symlink = (
     'npmrc',
     'p10k.zsh',
     'tmux.conf',
-    'vim.bundles',
+    'vimrc.bundles',
     'vimrc',
     'xonshrc',
     'zshenv',
@@ -71,7 +71,8 @@ dotfiles_to_symlink = (
 
 asdf_languages = (
     'nodejs',
-    'ruby'
+    'ruby',
+    'rust'
 )
 
 # why don't conda packages have a clever name?
@@ -80,7 +81,8 @@ conda_packages = (
 
 pip_packages = (
     'pynvim',
-    'neovim-remote'
+    'neovim-remote',
+    'notedown'
 )
 
 gems = (
@@ -93,7 +95,7 @@ npm_global_packages = (
     'neovim'
 )
 
-macos_config_script = 'macos_config'
+macos_config_script = 'macos_config.sh'
 
 ##################################################3
 
@@ -267,6 +269,8 @@ def brewfile_install():
     subprocess.run('brew bundle --file ~/.Brewfile', shell=True, executable='/bin/bash')
 
 def brew_finish():
+    """All of the things to do after brew packages are installed"""
+    subprocess.run('$(brew --prefix)/opt/fzf/install', shell=True)
     subprocess.run(['brew', 'cleanup'])
     subprocess.run(['brew', 'doctor'])
 
@@ -293,6 +297,7 @@ if __name__ == "__main__":
     brew_install()
     brew_update()
     brewfile_install() # note: conda is installed here on mac
+    brew_post()
 
     # shells
     zsh_setup()
