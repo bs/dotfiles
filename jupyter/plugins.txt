@@ -1,0 +1,17 @@
+@deathbeds/jupyterlab-font-fira-code v0.7.0  enabled  OK
+@deathbeds/jupyterlab-fonts v0.7.0  enabled  OK
+@ijmbarr/jupyterlab_spellchecker v0.1.5 disabled OK
+@jupyter-widgets/jupyterlab-manager v1.1.0  enabled  OK
+@jupyterlab/celltags v0.2.0  enabled  OK
+@jupyterlab/commenting-extension v0.2.1 disabled OK
+@jupyterlab/debugger v0.1.2  enabled  OK
+@jupyterlab/git v0.10.0  enabled  OK
+@jupyterlab/shortcutui v0.4.0  enabled  OK
+@karosc/jupyterlab_dracula v2.0.2  enabled  OK
+@krassowski/jupyterlab-lsp v0.8.0  enabled  OK
+@krassowski/jupyterlab_go_to_definition v0.7.1  enabled  OK
+@wallneradam/custom_css v0.1.3 disabled OK
+jupyterlab-plotly v1.5.1  enabled  OK
+@axlair/jupyterlab_vim
+nbdime-jupyterlab v1.0.0  enabled  OK
+plotlywidget v1.5.1  enabled  OK

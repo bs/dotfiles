@@ -19,6 +19,11 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
 
+    " for coc-clap ... not completely sure if this *must* be installed first
+    " Clap is similar to fzf, but I prefer its interface a bit more, and
+    " and 'filer' is sweet :)
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
+
 " }}}
 
 " COC {{{
@@ -35,7 +40,9 @@ call plug#begin('~/.vim/plugged')
         \ 'coc-html',
         \ 'coc-json',
         \ 'coc-python',
+        \ 'coc-snippets',
         \ 'coc-solargraph',
+        \ 'coc-spell-checker',
         \ 'coc-tsserver',
         \ 'coc-vimlsp',
         \ 'coc-yaml',
@@ -44,6 +51,10 @@ call plug#begin('~/.vim/plugged')
 
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
   endif
+
+":  Plug 'liuchengxu/coc-clap'
+  Plug 'vn-ki/coc-clap'
+  Plug 'antoinemadec/coc-fzf'
 
 " }}}
 
@@ -72,19 +83,19 @@ call plug#begin('~/.vim/plugged')
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
     " integration with Deckset macOS app
-    Plug 'bwmcadams/vim-deckset', { 'for': 'markdown' }
+    " Plug 'bwmcadams/vim-deckset', { 'for': 'markdown' }
 
-    function! BuildComposer(info)
-      if a:info.status != 'unchanged' || a:info.force
-        if has('nvim')
-          !cargo build --release --locked
-        else
-          !cargo build --release --locked --no-default-features --features json-rpc
-        endif
-      endif
-    endfunction
+    " function! BuildComposer(info)
+    "   if a:info.status != 'unchanged' || a:info.force
+    "     if has('nvim')
+    "       !cargo build --release --locked
+    "     else
+    "       !cargo build --release --locked --no-default-features --features json-rpc
+    "     endif
+    "   endif
+    " endfunction
 
-    Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
+    " Plug 'euclio/vim-markdown-composer', { 'do': function('BuildComposer') }
 
 " }}}
 
@@ -114,7 +125,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 
     " save vim sessions
-    Plug 'tpope/vim-obsession'
+  "  " Plug 'tpope/vim-obsession'
 
     " Comment out code easily
     Plug 'tpope/vim-commentary'
@@ -153,11 +164,16 @@ call plug#begin('~/.vim/plugged')
 
 " }}}
 
-" Airline {{{
+" GUI + Looks {{{
 
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    " Plug 'enricobacis/vim-airline-clock'
+    Plug 'vim-airline/vim-airline' " airline status bar
+    Plug 'vim-airline/vim-airline-themes' " airline themes
+
+    Plug 'dracula/vim', { 'as': 'dracula' } " Dracula Theme
+    Plug 'ryanoasis/vim-devicons' " Icons for things (I had in a note to put this BELOW nerdtree and airline ... let's see if it still works here
+
+    Plug 'gregsexton/MatchTag'
+    Plug 'luochen1990/rainbow'
 
 " }}}
 
@@ -187,10 +203,10 @@ call plug#begin('~/.vim/plugged')
 
 " TMUX: {{{
 "   " .tmux.conf syntax highlighting
-"   Plug 'keith/tmux.vim', { 'for': 'tmux' }
+    Plug 'keith/tmux.vim', { 'for': 'tmux' }
 
 "   " tmux config file stuff
-"   Plug 'tmux-plugins/vim-tmux', { 'on': 'Mux' }
+    Plug 'tmux-plugins/vim-tmux', { 'on': 'Mux' }
 
 "   " vim slime for tmux integration (C-c, C-c to send selction to tmux)
 "   Plug 'jpalardy/vim-slime', { 'on': 'Mux' }
@@ -198,10 +214,10 @@ call plug#begin('~/.vim/plugged')
   " seamless tmux/vim pane navigation
     Plug 'christoomey/vim-tmux-navigator'
 
-"   " yet another tmux plugin
-""    Plug 'benmills/vimux', { 'on': 'Mux' }
+   " yet another tmux plugin
+    Plug 'benmills/vimux', { 'on': 'Mux' }
 "     " Run Golang tests in vimux
-"     Plug 'benmills/vimux-golang', { 'on': 'Mux' }
+    Plug 'julienr/vimux-pyutils', { 'on': 'Mux' }
 
 "     " Run elixir mix tests in vimux
 "     Plug 'spiegela/vimix', { 'on': 'Mux' }
@@ -210,7 +226,7 @@ call plug#begin('~/.vim/plugged')
 "     Plug 'jgdavey/vim-turbux', { 'on': 'Mux' }
 
 "   " autocomplete using text from tmux
-"   Plug 'wellle/tmux-complete.vim', { 'on': 'Mux' }
+   Plug 'wellle/tmux-complete.vim', { 'on': 'Mux' }
 " }}}
 
 " Searching: {{{
@@ -253,16 +269,36 @@ call plug#begin('~/.vim/plugged')
 
 " Python: {{{
 
-    " am I crazy for trying notebooks in vim?
-    Plug 'aaren/notedown'
-    Plug 'szymonmaszke/vimpyter'
+" am I crazy for trying notebooks in vim?
+" Plug 'aaren/notedown'
+" Plug 'szymonmaszke/vimpyter'
+Plug 'goerz/jupytext.vim'
 
-    " A nicer Python indentation style for vim
-    Plug 'Vimjas/vim-python-pep8-indent'
+" A nicer Python indentation style for vim
+Plug 'Vimjas/vim-python-pep8-indent'
 
+" better python syntax highlighting
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " }}}
 
-" Other: {{{
+
+" Snippets: {{{
+
+  " Snippets Engine
+  Plug 'SirVer/ultisnips'
+
+  " Snippets are separated from teh engine
+  Plug 'honza/vim-snippets'
+
+  " neosnippet snippets
+  "Plug 'Shougo/neosnippet'
+  "Plug 'Shougo/neosnippet-snippets'
+" }}}
+
+" Windows, buffers, & panes : {{{
+
+    " Zoom windows (default binds to <c-w>m
+    Plug 'dhruvasagar/vim-zoom'
 
     " Close buffers a bit more sensibly
     Plug 'mhinz/vim-sayonara', {'on': 'Sayonara'}
@@ -276,11 +312,18 @@ call plug#begin('~/.vim/plugged')
     " resize windows automatically if too small
     Plug 'camspiers/lens.vim'
 
+    " resize windows in vim naturally
+    Plug 'simeji/winresizer', { 'on': 'WinResizerStartResize' }
+
+    " redirect the output of a command to a buffer
+    Plug 'AndrewRadev/bufferize.vim'
+
+" }}}
+
+" Other: {{{
+
     " open Finder / Terminal for file under the cursor
     " Plug 'justinmk/vim-gtfo'
-
-    " share code screenshots with Carbon Now
-    " Plug 'kristijanhusak/vim-carbon-now-sh'
 
     " replacement for matchit
     Plug 'andymass/vim-matchup'
@@ -333,17 +376,23 @@ call plug#begin('~/.vim/plugged')
     " interactive scratchpad
     Plug 'metakirby5/codi.vim'
 
-    " resize windows in vim naturally
-    Plug 'simeji/winresizer', { 'on': 'WinResizerStartResize' }
-
-    "' File icons in vim --- keep at the bottom, below airline, nerdtree and startify
-    Plug 'ryanoasis/vim-devicons'
-
-    " Dracula
-    Plug 'dracula/vim', { 'as': 'dracula' }
-
     " Nvim in Firefox
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" }}}
+
+" Experiments/Trials: {{{
+
+  Plug 'thaerkh/vim-workspace'
+"  Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+  " Plug 'psliwka/vim-smoothie'                             " some very smooth ass scrolling
+  Plug 'farmergreg/vim-lastplace'                         " open files at the last edited place
+  Plug 'machakann/vim-sandwich'                           " make sandwiches
+  " Plug 'easymotion/vim-easymotion'                        " make movement a lot faster and easier
+  Plug '907th/vim-auto-save'                              " nothing beats this
+  " Plug 'kristijanhusak/vim-carbon-now-sh'                 " lit code Screenshots
+  Plug 'vimwiki/vimwiki'
+  Plug 'michal-h21/vim-zettel'
+
 " }}}
 
 call plug#end()

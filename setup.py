@@ -268,7 +268,7 @@ def brewfile_install():
     robo_says('installing brew packages')
     subprocess.run('brew bundle --file ~/.Brewfile', shell=True, executable='/bin/bash')
 
-def brew_finish():
+def brew_post():
     """All of the things to do after brew packages are installed"""
     subprocess.run('$(brew --prefix)/opt/fzf/install', shell=True)
     subprocess.run(['brew', 'cleanup'])

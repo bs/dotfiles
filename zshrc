@@ -8,6 +8,19 @@ fi
 # TODO: break out aliases into their own files
 # TODO: Maybe at some point check out https://github.com/romkatv/powerlevel10k
 
+# vi mode
+# bindkey -v
+# export KEYTIMEOUT=1
+
+# Yank to the system clipboard
+function vi-yank-xclip {
+    zle vi-yank
+   echo "$CUTBUFFER" | pbcopy -i
+}
+
+zle -N vi-yank-xclip
+bindkey -M vicmd 'y' vi-yank-xclip
+
 # Map a few of the emacs keyboard shortcuts to vi
 bindkey '^K' up-history
 bindkey '^J' down-history
@@ -27,7 +40,6 @@ fi
 # Editor for git commits, rebases etc (don't set it if it was set already...
 # i.e. by NeoVim)
 if [ -z ${GIT_EDITOR+x} ]; then
-  export GIT_EDITOR='nvim'
 fi
 
 # vim
@@ -39,10 +51,23 @@ alias tree="tree -C"
 alias :qa="nvr -cc ':qa'"
 alias :wq="nvr -cc ':wq'"
 
-alias vim='nvim'
-alias vi='nvim'
+alias vim="$EDITOR"
+alias vi="$EDITOR"
 alias vimdiff='nvim -d'
 alias legacyvim='command vim'
+
+# notes
+wi() {
+  cd ~/src/wikish
+  e +cd ~/src/wikish/
+}
+
+# edit zshrc
+zc() {
+  e ~/dotfiles/zshrc
+}
+
+
 
 # enable colored output from ls, etc
 export CLICOLOR=1
@@ -304,14 +329,22 @@ if $(command -v fzf >/dev/null); then
 
 fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/britt/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/britt/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/britt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/britt/google-cloud-sdk/completion.zsh.inc'; fi
-
 # Mosh
 # export PATH=/usr/local/bin:$PATH
+
+if [[ -n $TMUX ]]; then
+    export NVIM_LISTEN_ADDRESS=/tmp/nvim_$USER_tmux
+fi
+
+nv() {
+  if [ ! -z "$TMUX" ]; then
+    local ids="$(tmux list-panes -a -F '#{pane_current_command} #{window_id} #{pane_id}' | awk '/^nvim / {print $2" "$3; exit}')"
+    local window_id="$ids[(w)1]"
+    local pane_id="$ids[(w)2]"
+    [ ! -z "$pane_id" ] && tmux select-window -t "$window_id" && tmux select-pane -t "$pane_id"
+  fi
+  nvr -s $@
+}
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
@@ -353,6 +386,15 @@ zinit light zsh-users/zsh-completions
 # extend completions - conda
 zinit light esc/conda-zsh-completion
 
+# Fast-syntax-highlighting & autosuggestions
+# zinit wait lucid for \
+#  atinit"ZINIT[COMPINIT_OPTS]=-C; zpcompinit; zpcdreplay" \
+#     zdharma/fast-syntax-highlighting \
+#  atload"!_zsh_autosuggest_start" \
+#     zsh-users/zsh-autosuggestions \
+#  blockf \
+#     zsh-users/zsh-completions
+
 # fish like autocomplete
 zinit ice wait lucid atload'_zsh_autosuggest_start'
 zinit light zsh-users/zsh-autosuggestions
@@ -360,9 +402,11 @@ zinit light zsh-users/zsh-autosuggestions
 bindkey '^[[[CE' autosuggest-accept
 bindkey '^ ' autosuggest-accept
 
-FZF_COMPLETE=2
+# FZF_COMPLETE=2
 
 zinit light wfxr/forgit
+
+zinit light zdharma/zsh-startify
 
 # zsh history search
 # pre-requisite `brew install zsh-history-substring-search`
@@ -423,14 +467,14 @@ alias lm='exa -lbF --git --sort=modified' # long list, modified date sort
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/usr/local/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/usr/local/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/usr/local/anaconda3/bin:$PATH"
+        export PATH="/usr/local/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
@@ -447,3 +491,14 @@ export HOMEBREW_CASK_OPTS=--require-sha
 # Use a conda env that is a clone of base,
 # but maintain base as a clean reference
 conda activate snake_jazz
+
+# TODO: move these to a perm place for completions"
+# google-cloud-sdk
+if [ -f '/Users/britt/google-cloud-sdk/path.zsh.inc' ]; then
+    export PATH="$PATH:/Users/britt/google-cloud-sdk/bin"
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/britt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/britt/google-cloud-sdk/completion.zsh.inc'; fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

@@ -5,7 +5,9 @@
 	email = yap@bri.tt
 [core]
 	excludesfile = ~/.gitignore
-	pager = diff-so-fancy | less --tabs=4 -RFX
+  pager = delta --plus-color="#012800" --minus-color="#340001" --theme='Dracula'
+[interactive]
+  diffFilter = delta --color-only
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f

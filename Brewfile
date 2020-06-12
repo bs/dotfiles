@@ -1,6 +1,7 @@
 # Taps
 tap 'homebrew/cask'
 tap 'homebrew/cask-fonts'
+tab 'homebrew/cask-drivers'
 cask_args appdir: '/Applications'
 
 # core (out of alpabetical order because of dependencies)
@@ -27,6 +28,7 @@ brew 'tmux'
 # dev
 brew 'diff-so-fancy'
 brew 'git'
+brew 'git-delta' # slightly better (imo) git-diff tool
 brew 'lazygit'
 brew 'neovim'
 brew 'universal-ctags/universal-ctags/universal-ctags', args: ['head'] # doesn't exist in brew core yet
@@ -44,7 +46,6 @@ cask 'font-source-sans-pro'
 cask 'font-source-serif-pro'
 
 # macOS Applications
-
 cask 'alfred'
 cask 'bartender'
 cask 'bettertouchtool'
@@ -62,10 +63,16 @@ cask 'karabiner-elements'
 cask 'krisp'
 cask 'popclip'
 cask 'rectangle'
+cask 'riot'
 cask 'sidequest'
 cask 'slack'
-cask 'spotify'
+cask 'sonos'
+cask 'spotify' # won't currently install because it doesn't have a hash - June 3, 2020
 cask 'transmission'
 cask 'visual-studio-code'
 cask 'vivaldi'
 cask 'vlc'
+
+# Oculus Quest Specific
+cask 'android-platform-tools'
+brew 'scrcpy'
