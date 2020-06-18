@@ -21,6 +21,7 @@ These are apps that have no good source on Homebrew Cask and need to be
 installed manually.
 
 - [Audacity](https://www.audacityteam.org/download/mac/)
+- [Basecamp](https://bc3-desktop.s3.amazonaws.com/mac/basecamp3.dmg) # no sha for Homebrew
 - [descript](https://www.descript.com/download)
 - [figma](https://www.figma.com/downloads/)
 - [Google Drive File Stream](https://dl.google.com/drive-file-stream/googledrivefilestream.dmg)

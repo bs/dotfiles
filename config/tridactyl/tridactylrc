@@ -12,6 +12,9 @@
    "                 ||----w |
    "                 ||     ||
 
+" blocklist
+blacklistadd ^(http[s]?://)?[a-zA-Z0-9]+[:]?[0-9]*/lab " jupyter lab
+
 
 colorscheme base16-dracula
 
@@ -39,7 +42,7 @@ unbind --mode=ex <C-a>
 " Allow Ctrl-c to copy in the commandline
 unbind --mode=ex <C-c>
 
-unbind <S-Escape>
+unbind --mode=ignore <S-Escape>
 
 " For TreeTabs toggle to work
 unbind --mode=normal <F1>
