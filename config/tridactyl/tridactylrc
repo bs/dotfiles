@@ -19,8 +19,7 @@ blacklistadd ^(http[s]?://)www\.youtube\.com/watch\?.* " youtube
 blacklistadd ^(http[s]?://)mail\.google\.com/.* " gmail
 
 
-colorscheme base16-dracula
-
+colors shydactyl
 " Use vim in tmux for editor.
 " set editorcmd iterm -e tmux -u new vim -S /home/britt/.vim/tridactyl.vim
 
