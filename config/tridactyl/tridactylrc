@@ -14,6 +14,9 @@
 
 " blocklist
 blacklistadd ^(http[s]?://)?[a-zA-Z0-9]+[:]?[0-9]*/lab " jupyter lab
+blacklistadd ^(http[s]?://)github\.com.* " github
+blacklistadd ^(http[s]?://)www\.youtube\.com/watch\?.* " youtube
+blacklistadd ^(http[s]?://)mail\.google\.com/.* " gmail
 
 
 colorscheme base16-dracula
