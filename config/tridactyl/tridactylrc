@@ -31,13 +31,6 @@ bind ? fillcmdline find -?
 bind n findnext 1
 bind N findnext -1
 
-" Only hint search results on Google and DDG
-bindurl www.google.com f hint -Jc .rc > .r > a
-bindurl www.google.com F hint -Jbc .rc>.r>a
-
-bindurl ^https://duckduckgo.com f hint -Jc [class=result__a]
-bindurl ^https://duckduckgo.com F hint -Jbc [class=result__a]
-
 " Allow Ctrl-a to select all in the commandline
 unbind --mode=ex <C-a>
 
