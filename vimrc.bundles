@@ -82,6 +82,10 @@ call plug#begin('~/.vim/plugged')
     " Previewing markdown in the browser
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 
+    " General markdown
+    Plug 'gabrielelana/vim-markdown'
+
+
     " integration with Deckset macOS app
     " Plug 'bwmcadams/vim-deckset', { 'for': 'markdown' }
 
@@ -148,7 +152,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/gv.vim'
 
     " Display git blame status on line
-    Plug 'APZelos/blamer.nvim'
+    " Plug 'APZelos/blamer.nvim'
 
 " }}}
 
@@ -281,12 +285,12 @@ Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " }}}
 
-
 " Snippets: {{{
 
   " Snippets Engine
-  Plug 'SirVer/ultisnips'
-
+  "
+  "Plug 'SirVer/ultisnips'
+"
   " Snippets are separated from teh engine
   Plug 'honza/vim-snippets'
 

@@ -56,6 +56,8 @@ alias vi="$EDITOR"
 alias vimdiff='nvim -d'
 alias legacyvim='command vim'
 
+alias c="code-insiders"
+
 # notes
 wi() {
   cd ~/src/wikish
@@ -406,8 +408,6 @@ bindkey '^ ' autosuggest-accept
 
 zinit light wfxr/forgit
 
-zinit light zdharma/zsh-startify
-
 # zsh history search
 # pre-requisite `brew install zsh-history-substring-search`
 # NOTE: must be placed after zsh-syntax-highlighting if used together
@@ -500,5 +500,3 @@ fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/britt/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/britt/google-cloud-sdk/completion.zsh.inc'; fi
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

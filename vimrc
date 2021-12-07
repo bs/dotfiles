@@ -28,6 +28,10 @@
 
 " General settings {{{
 
+" for fish and other non POSIX
+set shell=/bin/bash
+
+
 scriptencoding utf-16               " allow emojis in vimrc
 set nocompatible                    " vim, not vi
 syntax on                           " syntax highlighting
@@ -322,7 +326,7 @@ augroup GOYO
 augroup END
 
 " Snippets (UltraSnips):
-let g:UltiSnipsEditSplit                   = 'vertical'
+"let g:UltiSnipsEditSplit                   = 'vertical'
 let g:UltiSnipsSnippetDirectories = ['~/dotfiles/vim/ultisnips']
 
 " Saynoara
@@ -549,6 +553,7 @@ augroup vimrcEx
   autocmd BufRead,BufNewFile *.yrl set filetype=erlang
   autocmd BufRead,BufNewFile *.md set filetype=markdown
   autocmd BufRead,BufNewFile .eslintrc,.prettierrc set filetype=json
+  au! BufNewFile,BufRead *.svelte set ft=html
 
   " enable spell only if file type is normal text
   let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid']

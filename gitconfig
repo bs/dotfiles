@@ -15,3 +15,7 @@
 	process = git-lfs filter-process
 [github]
 	user = bs
+[submodule]
+	recurse = true
+[pull]
+	ff = only
